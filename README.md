@@ -80,32 +80,11 @@ Ha másik ikont/logót szeretnél, csak cseréld le a 4 fájlt a `brand/`
 mappában ugyanazokkal a fájlnevekkel (256×256, ill. 512×512 px, átlátszó
 háttér ajánlott).
 
-## Ventilátor-fordulatszám állítása (number entitások)
+## Amit ez az integráció (még) nem csinál
 
-Minden olyan csatornánál, ahol a daemon **RPM-et is jelent** (vagyis
-tényleges fizikai ventilátor/pumpa, nem csak load%-ot mutató csatorna,
-mint pl. a "GPU Load"), az integráció létrehoz egy 10–100% közötti
-csúszkás `number` entitást ("*Csatornanév* Manual Duty" néven). Ez a
-
-```
-PUT https://<host>:<port>/devices/<device_uid>/settings/<csatorna>/manual
-Content-Type: application/json
-
-{"speed_fixed": <10-100>}
-```
-
-hívást küldi el, pontosan úgy, ahogy a daemon webes felülete is teszi.
-
-**Fontos:** ehhez a config flow-ban megadott tokennek **Write access**
-joggal kell rendelkeznie (nem elég a Read-Only) — ha a token csak
-olvasásra jogosult, a csúszka mozgatásakor a Home Assistant hibaüzenetet
-fog mutatni ("A token nem rendelkezik írási joggal").
-
-A csúszka a beállítás után azonnal mutatja az új értéket (optimista
-frissítés), majd a következő lekérdezéskor (`DEFAULT_SCAN_INTERVAL`,
-`const.py`) megerősíti a daemontól kapott tényleges duty-val.
-
-Ha egy olyan csatornát is szeretnél állítani, aminek nincs RPM-je (pl.
-CustomSensors alapú vagy GPU firmware-vezérelt csatorna), szólj – a
-felismerési logika (`coordinator.py`, `_parse_device`) könnyen bővíthető.
-
+Csak **olvasásra** (sensorokra) készült. Ventilátor/pumpa fordulatszám
+vagy profil beállítására (írás, `POST` a daemon felé) szándékosan nem
+tartalmaz kódot, mert az írási végpontok pontos JSON payload-ját nem
+tudtam megbízhatóan ellenőrizni – rossz payload esetén könnyen félreírná a
+hűtésvezérlést. Ha ez is kell, szólj, és a curl/DevTools-os ellenőrzés
+után (lásd fent) hozzáadom a `number`/`select` entitásokat is.

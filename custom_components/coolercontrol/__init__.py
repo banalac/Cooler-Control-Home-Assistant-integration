@@ -12,7 +12,7 @@ from .api import CoolerControlApiClient
 from .const import CONF_TOKEN, CONF_VERIFY_SSL, DEFAULT_SCAN_INTERVAL, DOMAIN
 from .coordinator import CoolerControlCoordinator
 
-PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.NUMBER]
+PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

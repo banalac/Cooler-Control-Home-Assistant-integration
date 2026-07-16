@@ -86,35 +86,6 @@ class CoolerControlApiClient:
         except aiohttp.ClientError as err:
             raise CoolerControlApiError(f"Error communicating with {url}: {err}") from err
 
-    async def _put(self, path: str, json_body: dict[str, Any]) -> None:
-        url = f"{self._base_url}{path}"
-        try:
-            async with self._session.put(
-                url,
-                headers={**self._headers(), "Content-Type": "application/json"},
-                json=json_body,
-                ssl=self._ssl,
-                timeout=aiohttp.ClientTimeout(total=15),
-            ) as resp:
-                if resp.status in (401, 403):
-                    raise CoolerControlAuthError(
-                        f"CoolerControl rejected the write request (HTTP {resp.status}) — "
-                        "does this token have write access?"
-                    )
-                resp.raise_for_status()
-        except CoolerControlAuthError:
-            raise
-        except aiohttp.ClientError as err:
-            raise CoolerControlApiError(f"Error writing to {url}: {err}") from err
-
-    async def async_set_fan_speed(self, device_uid: str, channel_name: str, speed_percent: int) -> None:
-        """Set a channel to a fixed manual duty (%), e.g. PUT /devices/{uid}/settings/fan2/manual."""
-        speed_percent = max(0, min(100, int(round(speed_percent))))
-        await self._put(
-            f"/devices/{device_uid}/settings/{channel_name}/manual",
-            {"speed_fixed": speed_percent},
-        )
-
     async def async_verify(self) -> None:
         """Raise if the daemon can't be reached / token is invalid."""
         devices = await self._get(ENDPOINT_DEVICES)

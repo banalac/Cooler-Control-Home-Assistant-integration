@@ -29,23 +29,11 @@ class CoolerControlMetric:
 
 
 @dataclass
-class CoolerControlFanChannel:
-    """A channel that can be manually driven via PUT /devices/{uid}/settings/{channel}/manual."""
-
-    device_uid: str
-    device_name: str
-    channel_name: str  # the raw channel identifier used in the URL, e.g. "fan2"
-    label: str
-    current_duty: float | None
-
-
-@dataclass
 class CoolerControlDevice:
     uid: str
     name: str
     type: str
     metrics: list[CoolerControlMetric] = field(default_factory=list)
-    fan_channels: list[CoolerControlFanChannel] = field(default_factory=list)
 
 
 def _as_float(value: Any) -> float | None:
@@ -119,22 +107,6 @@ def _parse_device(device: dict[str, Any], name_lookup: dict[str, str] | None = N
             parsed.metrics.append(
                 CoolerControlMetric(uid, name, dtype, key, label, kind, val)
             )
-
-        # Only channels that report an RPM are actual physical fans/pumps that
-        # can be manually driven - things like "GPU Load" or "CPU Load" only
-        # have a duty/load percentage and aren't controllable via /manual.
-        if _as_float(channel.get("rpm")) is not None:
-            channel_name = channel.get("name")
-            if channel_name:
-                parsed.fan_channels.append(
-                    CoolerControlFanChannel(
-                        device_uid=uid,
-                        device_name=name,
-                        channel_name=channel_name,
-                        label=channel_name,
-                        current_duty=_as_float(channel.get("duty")),
-                    )
-                )
 
     if not parsed.metrics:
         _LOGGER.debug(
