@@ -5,7 +5,10 @@ class CoolerControlAPI:
     def __init__(self, host, token):
         self.host = host
         self.token = token
-        self.base = f"http://{host}:11987"
+        self.base = f"https://{host}"
+
+        # SSL kikapcsolása (self-signed cert miatt)
+        self.connector = aiohttp.TCPConnector(ssl=False)
 
     async def get_status(self, uid=None):
         url = f"{self.base}/status"
@@ -14,7 +17,7 @@ class CoolerControlAPI:
 
         headers = {"Authorization": f"Bearer {self.token}"}
 
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(connector=self.connector) as session:
             with async_timeout.timeout(10):
                 async with session.get(url, headers=headers) as resp:
                     return await resp.json()
@@ -31,6 +34,6 @@ class CoolerControlAPI:
             "duty": duty
         }
 
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(connector=self.connector) as session:
             async with session.post(url, headers=headers, json=payload) as resp:
                 return await resp.json()
