@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Kapcsolódás a CoolerControlhoz",
-        "description": "Add meg a coolercontrold daemon címét, és egy, a CoolerControl webes felületén (Access Protection menü) létrehozott access tokent.",
+        "description": "Add meg a coolercontrold daemon címét, és egy, a CoolerControl webes felületén (Access Protection menü) létrehozott access tokent. Ha Home Assistantból is szeretnéd állítani a ventilátorok fordulatszámát, Write access joggal rendelkező tokent adj meg.",
         "data": {
           "host": "Host / IP cím",
           "port": "Port",
