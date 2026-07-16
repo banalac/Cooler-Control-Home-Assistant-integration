@@ -66,5 +66,4 @@ Csak **olvasásra** (sensorokra) készült. Ventilátor/pumpa fordulatszám
 vagy profil beállítására (írás, `POST` a daemon felé) szándékosan nem
 tartalmaz kódot, mert az írási végpontok pontos JSON payload-ját nem
 tudtam megbízhatóan ellenőrizni – rossz payload esetén könnyen félreírná a
-hűtésvezérlést. Ha ez is kell, szólj, és a curl/DevTools-os ellenőrzés
-után (lásd fent) hozzáadom a `number`/`select` entitásokat is.
+hűtésvezérlést.
