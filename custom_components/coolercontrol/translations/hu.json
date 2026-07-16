@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Kapcsolódás a CoolerControlhoz",
+        "description": "Add meg a coolercontrold daemon címét, és egy, a CoolerControl webes felületén (Access Protection menü) létrehozott access tokent.",
+        "data": {
+          "host": "Host / IP cím",
+          "port": "Port",
+          "token": "Access token",
+          "verify_ssl": "SSL tanúsítvány ellenőrzése"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Nem sikerült csatlakozni a daemonhoz. Ellenőrizd a host/port beállítást és hogy fut-e a coolercontrold.",
+      "invalid_auth": "A daemon elutasította az access tokent.",
+      "unknown": "Váratlan hiba történt."
+    },
+    "abort": {
+      "already_configured": "Ez a CoolerControl daemon már be van állítva."
+    }
+  }
+}

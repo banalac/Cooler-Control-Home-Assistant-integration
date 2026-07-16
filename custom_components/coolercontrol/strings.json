@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to CoolerControl",
+        "description": "Enter the address of your coolercontrold daemon and an access token created in the CoolerControl Web UI (Access Protection menu).",
+        "data": {
+          "host": "Host or IP address",
+          "port": "Port",
+          "token": "Access token",
+          "verify_ssl": "Verify SSL certificate"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the daemon. Check the host/port and that coolercontrold is running.",
+      "invalid_auth": "The access token was rejected.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This CoolerControl daemon is already configured."
+    }
+  }
+}
