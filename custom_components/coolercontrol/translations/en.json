@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Connect to CoolerControl",
-        "description": "Enter the address of your coolercontrold daemon and an access token created in the CoolerControl Web UI (Access Protection menu).",
+        "description": "Enter the address of your coolercontrold daemon and an access token created in the CoolerControl Web UI (Access Protection menu). Use a Write-access token if you also want to control fan speeds from Home Assistant.",
         "data": {
           "host": "Host or IP address",
           "port": "Port",
