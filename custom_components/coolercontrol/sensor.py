@@ -33,7 +33,7 @@ _KIND_MAP: dict[str, tuple[SensorDeviceClass | None, SensorStateClass | None, st
     "rpm": (None, SensorStateClass.MEASUREMENT, REVOLUTIONS_PER_MINUTE),
     "duty": (None, SensorStateClass.MEASUREMENT, PERCENTAGE),
     "load": (None, SensorStateClass.MEASUREMENT, PERCENTAGE),
-    "freq": (SensorDeviceClass.FREQUENCY, SensorStateClass.MEASUREMENT, UnitOfFrequency.HERTZ),
+    "freq": (SensorDeviceClass.FREQUENCY, SensorStateClass.MEASUREMENT, UnitOfFrequency.MEGAHERTZ),
     "watts": (SensorDeviceClass.POWER, SensorStateClass.MEASUREMENT, UnitOfPower.WATT),
     "volts": (SensorDeviceClass.VOLTAGE, SensorStateClass.MEASUREMENT, UnitOfElectricPotential.VOLT),
 }
